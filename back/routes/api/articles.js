@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+
+router.get('/', function (req, res) {
+  res.json({articles: 'hello world'});
+});
+
+router.get('/:id', function (req, res) {
+  const id = req.params.id;
+  res.json({[`article ${id}`]: 'hello world'})
+});
+
+module.exports = router;
