@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const commentsRouter = require('./articles/comments');
+const articlesController = require.main.require('../controllers/articles');
 
-router.get('/', function (req, res) {
-  res.json({articles: 'hello world'});
-});
+router.get('/', articlesController.getAll);
+router.get('/:id', articlesController.get);
 
-router.get('/:id', function (req, res) {
-  const id = req.params.id;
-  res.json({[`article ${id}`]: 'hello world'})
-});
+router.use('/:id/comments', commentsRouter);
 
 module.exports = router;

@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const articles = require('./api/articles');
+const articlesRouter = require('./api/articles');
 
-router.get('/', function (req, res) {
-    res.json({api: 'hello world'});
-});
-
-router.use('/articles', articles);
+router.use('/articles', articlesRouter);
 
 module.exports = router;
