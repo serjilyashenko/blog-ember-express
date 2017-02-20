@@ -7,12 +7,14 @@
 const app = require('../app');
 const debug = require('debug')('express-ember-blog:server');
 const http = require('http');
+const mongoose = require('../lib/mongoose');
+const config = require('../config/config.json');
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(config.port || '8080');
 app.set('port', port);
 
 /**
