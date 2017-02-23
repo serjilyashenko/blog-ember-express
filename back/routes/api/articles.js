@@ -1,14 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const commentsRouter = require('./articles/comments');
-const articlesController = require.main.require('../controllers/articles');
+const BaseController = require.main.require('../controllers/base-controller');
 
-router.get('/', articlesController.getAll);
-router.post('/', articlesController.create);
+const MODEL_NAME = 'article';
 
-router.get('/:id', articlesController.get);
-router.put('/:id', articlesController.update);
-router.delete('/:id', articlesController.destroy);
+const articlesController = new BaseController(MODEL_NAME);
+
+router.get('/', articlesController.getAll.bind(articlesController));
+router.post('/', articlesController.create.bind(articlesController));
+
+router.get('/:id', articlesController.get.bind(articlesController));
+router.put('/:id', articlesController.update.bind(articlesController));
+router.delete('/:id', articlesController.destroy.bind(articlesController));
 
 router.use('/:id/comments', commentsRouter);
 

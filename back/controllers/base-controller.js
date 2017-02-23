@@ -2,78 +2,47 @@ const MODELS_PATH = '../models';
 
 class BaseController {
 
-    constructor() {
-        this.modelName = null;
+    constructor(modelName = null) {
+        const modelPath = MODELS_PATH + '/' + modelName;
+        this.Model = require.main.require(modelPath);
     }
 
-    get getAll() {
-        return this._getAll.bind(this);
-    }
-
-    get get() {
-        return this._get.bind(this);
-    }
-
-    get create() {
-        return this._create.bind(this);
-    }
-
-    get update() {
-        return this._update.bind(this);
-    }
-
-    get destroy() {
-        return this._destroy.bind(this);
-    }
-
-    extend(child) {
-        child.__proto__ = this;
-        return child;
-    }
-
-    _getAll(req, res) {
-        const Model = this._getModel(this.modelName);
-        Model.find((err, records) => {
+    getAll(req, res) {
+        this.Model.find((err, records) => {
             // TODO: error
             res.send(records);
         });
     }
 
-    _get(req, res) {
+    get(req, res) {
         const id = req.params.id;
-        const Model = this._getModel(this.modelName);
-        Model.findById(id, (err, record) => {
+        this.Model.findById(id, (err, record) => {
             // TODO: error
             res.send(record);
         });
     }
 
-    _create(req, res) {
-        const Model = this._getModel(this.modelName);
-        const article = new Model({
-            title: req.body.title,
-            post: req.body.post,
-        });
+    create(req, res) {
+        const Model = this.Model;
+        // TODO: not necessary, if mongoose resolves it
+        const recordPrototype = this.getModelPropsFromPayload(Model, req.body);
 
-        article.save();
+        const record = new Model(recordPrototype);
+
+        record.save();
         // TODO: errors or 200 status
         res.sendStatus(200);
     }
 
-    _update(req, res) {
+    update(req, res) {
+        const Model = this.Model;
         const id = this._getIdByReqest(req);
-        const newRecord = req.body;
+        // TODO: not necessary, if mongoose resolves it
+        const newProperties = this.getModelPropsFromPayload(Model, req.body);
 
-        const Model = this._getModel(this.modelName);
         Model.findById(id, (err, record) => {
-            // TODO: error handler
-            for (let field in record) {
-                const newFieldValue = newRecord[field];
-                // TODO: realize correct updateing of a record
-                if (newFieldValue) {
-                    record[field] = newFieldValue;
-                }
-            }
+            Object.assign(record, newProperties);
+
             record.save((err, updatedRecord) => {
                 // TODO: error handler
                 res.send(updatedRecord);
@@ -81,11 +50,10 @@ class BaseController {
         });
     }
 
-    _destroy(req, res) {
+    destroy(req, res) {
         const id = this._getIdByReqest(req);
-        const Model = this._getModel(this.modelName);
 
-        Model.findById(id, (err, record) => {
+        this.Model.findById(id, (err, record) => {
             // TODO: error handler
             record.remove(() => {
                 res.sendStatus(200);
@@ -97,13 +65,20 @@ class BaseController {
         return reques.params.id;
     }
 
-    _getModel(modelName) {
-        const modelPath = MODELS_PATH + '/' + modelName;
-        return require.main.require(modelPath);
+    getModelPropsFromPayload(Model, payload) {
+        const objKeys = Object.keys(Model.schema.obj);
+        const payloadKeys = Object.keys(payload);
+
+        const crossKeys = objKeys.filter((key) => {
+            return payloadKeys.includes(key);
+        });
+
+        return crossKeys.reduce((res, key) => {
+            res[key] = payload[key];
+            return res;
+        }, {});
     }
 
 }
 
-//TODO: create correct object by class or create singleton by literal
-
-module.exports = new BaseController();
+module.exports = BaseController;
