@@ -24,8 +24,7 @@ class BaseController {
 
     create(req, res) {
         const Model = this.Model;
-        // TODO: not necessary, if mongoose resolves it
-        const recordPrototype = this.getModelPropsFromPayload(Model, req.body);
+        const recordPrototype = req.body;
 
         const record = new Model(recordPrototype);
 
@@ -37,8 +36,7 @@ class BaseController {
     update(req, res) {
         const Model = this.Model;
         const id = this._getIdByReqest(req);
-        // TODO: not necessary, if mongoose resolves it
-        const newProperties = this.getModelPropsFromPayload(Model, req.body);
+        const newProperties = req.body;
 
         Model.findById(id, (err, record) => {
             Object.assign(record, newProperties);
@@ -63,20 +61,6 @@ class BaseController {
 
     _getIdByReqest(reques) {
         return reques.params.id;
-    }
-
-    getModelPropsFromPayload(Model, payload) {
-        const objKeys = Object.keys(Model.schema.obj);
-        const payloadKeys = Object.keys(payload);
-
-        const crossKeys = objKeys.filter((key) => {
-            return payloadKeys.includes(key);
-        });
-
-        return crossKeys.reduce((res, key) => {
-            res[key] = payload[key];
-            return res;
-        }, {});
     }
 
 }
