@@ -5,12 +5,18 @@ class BaseController {
     constructor(modelName = null) {
         const modelPath = MODELS_PATH + '/' + modelName;
         this.Model = require.main.require(modelPath);
+        this.modelName = modelName;
     }
 
     getAll(req, res) {
         this.Model.find((err, records) => {
             // TODO: error
-            res.send(records);
+
+            const payload = {
+                [this.modelName]: records,
+            };
+
+            res.send(payload);
         });
     }
 

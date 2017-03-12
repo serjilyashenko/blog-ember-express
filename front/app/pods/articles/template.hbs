@@ -1,0 +1,9 @@
+<h1>Articles</h1>
+{{#each model as |article index|}}
+  <h4>
+    {{index}}) {{article.title}} <i>by {{article.author}}</i>
+  </h4>
+  <p>
+    {{article.post}}
+  </p>
+{{/each}}
