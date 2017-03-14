@@ -7,6 +7,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function () {
-  this.route('articles');
+
+  this.route('user', {path: '/Sashechka'}, function () {
+    this.route('articles');
+  });
+
 });
 export default Router;
