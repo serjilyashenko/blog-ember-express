@@ -6,6 +6,7 @@ const articleSchema = new Schema({
     author: {type: String, default: 'Anon'},
     title: String,
     post: String,
+    // commentsCount: {type: Number, default: 0},
 });
 
 module.exports = mongoose.model('Article', articleSchema);
