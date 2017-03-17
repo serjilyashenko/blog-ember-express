@@ -32,11 +32,14 @@ class BaseController {
         const Model = this.Model;
         const recordPrototype = req.body;
 
+        console.log('>> ', recordPrototype);
+
         const record = new Model(recordPrototype);
 
-        record.save();
+        record.save().then((record) => {
+            res.send(record);
+        });
         // TODO: errors or 200 status
-        res.sendStatus(200);
     }
 
     update(req, res) {

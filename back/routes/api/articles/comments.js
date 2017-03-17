@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const BaseController = require.main.require('../controllers/base-controller');
+const CommentsController = require.main.require('../controllers/comments-controller');
 
 const MODEL_NAME = 'comment';
 
-const commentsController = new BaseController(MODEL_NAME);
+const commentsController = new CommentsController(MODEL_NAME);
 
 router.get('/', commentsController.getAll.bind(commentsController));
 router.post('/', commentsController.create.bind(commentsController));

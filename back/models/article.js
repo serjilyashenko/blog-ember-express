@@ -6,6 +6,7 @@ const articleSchema = new Schema({
     author: {type: String, default: 'Anon'},
     title: String,
     post: String,
+    // comments: [{type: ObjectId, ref: 'comment'}],
     // commentsCount: {type: Number, default: 0},
 });
 
