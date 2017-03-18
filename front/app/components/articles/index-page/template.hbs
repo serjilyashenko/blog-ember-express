@@ -1,0 +1,15 @@
+{{#each model as |article index|}}
+  <h1 class="ui header">
+    {{#link-to "user.articles.article" article.id}}
+      {{article.title}}
+    {{/link-to}}
+    <i>by {{article.author}}</i>
+    <div class="sub header">
+      {{article.post}}
+    </div>
+    <div class="sub header">
+      {{article.created}}
+    </div>
+  </h1>
+  <div class="ui hidden divider"></div>
+{{/each}}

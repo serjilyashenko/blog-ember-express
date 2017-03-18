@@ -13,5 +13,4 @@ router.get('/:id', commentsController.get.bind(commentsController));
 router.put('/:id', commentsController.update.bind(commentsController));
 router.delete('/:id', commentsController.destroy.bind(commentsController));
 
-
 module.exports = router;
