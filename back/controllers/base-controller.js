@@ -9,15 +9,26 @@ class BaseController {
     }
 
     getAll(req, res) {
-        this.Model.find((err, records) => {
-            // TODO: error
+        const limit = req.query.limit || null;
+        const offset = req.query.offset || null;
+        const sortOptions = this._getSortOptions(req.query.order);
 
-            const payload = {
-                [this.modelName]: records,
-            };
+        return this.Model.find({})
+            .limit(limit)
+            .skip(offset)
+            .sort(sortOptions)
+            .exec((err, records) => {
+                // TODO: error
 
-            res.send(payload);
-        });
+                const payload = {
+                    [this.modelName]: records,
+                    meta: {
+                        total: records.length,
+                    },
+                };
+
+                res.send(payload);
+            });
     }
 
     get(req, res) {
@@ -70,6 +81,13 @@ class BaseController {
 
     _getIdByReqest(reques) {
         return reques.params.id;
+    }
+
+    _getSortOptions(order = '_id:asc') {
+        const orderBy = order.split(':')[0];
+        const orderType = order.split(':')[1] === 'desc' ? -1 : 1;
+
+        return {[orderBy]: orderType};
     }
 
 }
