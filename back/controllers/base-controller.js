@@ -9,26 +9,27 @@ class BaseController {
     }
 
     getAll(req, res) {
-        const limit = req.query.limit || null;
-        const offset = req.query.offset || null;
-        const sortOptions = this._getSortOptions(req.query.order);
+        this.Model.count((err, recordsCount) => {
+            // TODO: error handler
 
-        return this.Model.find({})
-            .limit(limit)
-            .skip(offset)
-            .sort(sortOptions)
-            .exec((err, records) => {
-                // TODO: error
+            const metaNormalized = this._normalizeMeta(req.query, recordsCount);
+            const metaSerialized = this._serializeMeta(metaNormalized, recordsCount);
 
-                const payload = {
-                    [this.modelName]: records,
-                    meta: {
-                        total: records.length,
-                    },
-                };
+            this.Model.find({})
+                .limit(metaNormalized.limit)
+                .skip(metaNormalized.offset)
+                .sort(metaNormalized.sortOptions)
+                .exec((err, records) => {
+                    // TODO: error handler
 
-                res.send(payload);
-            });
+                    const payload = {
+                        [this.modelName]: records,
+                        meta: metaSerialized,
+                    };
+
+                    res.send(payload);
+                });
+        });
     }
 
     get(req, res) {
@@ -90,6 +91,36 @@ class BaseController {
         return {[orderBy]: orderType};
     }
 
+    _normalizeMeta(query = {}, recordsCount) {
+        const limit = Number(query.limit) || 50;
+        const page = Number(query.page) || 1;
+        const sortOptions = this._getSortOptions(query.order);
+
+        const maxPage = Math.ceil(recordsCount / limit);
+        const currentPage = Math.min(page, maxPage);
+
+        const offset = Math.max((currentPage - 1) * limit);
+
+        return {limit, offset, sortOptions, currentPage, maxPage};
+    }
+
+    _serializeMeta({limit, sortOptions = {}, currentPage, maxPage} = {}, recordsCount) {
+        const sortKeys = Object.keys(sortOptions);
+        const order = sortKeys.reduce((order, key) => {
+            const sortType = sortOptions[key] === -1 ? 'desc' : 'asc';
+            return order.concat(`${key}:${sortType}`);
+        }, '');
+
+        return {
+            page: {
+                current: currentPage,
+                total: maxPage,
+            },
+            total: recordsCount,
+            limit: limit,
+            order: order,
+        };
+    }
 }
 
 module.exports = BaseController;
