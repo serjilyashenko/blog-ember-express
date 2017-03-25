@@ -3,15 +3,18 @@ import Ember from 'ember';
 
 export default Resolver.extend({
 
-  customPodBasedModuleName(parsedName) {
-    let podPrefix = `${this.namespace.modulePrefix}/pods`;
+  customPodBasedComponentsInSubdir: function(parsedName) {
+    const modulePrefix = this.namespace.modulePrefix;
+    const podPrefix = modulePrefix + '/components';
 
-    return this.podBasedLookupWithPrefix(podPrefix, parsedName);
+    if (parsedName.type === 'component' || parsedName.fullNameWithoutType.match(/^components/)) {
+      return this.podBasedLookupWithPrefix(podPrefix, parsedName);
+    }
   },
 
   moduleNameLookupPatterns: Ember.computed(function () {
     return this._super()
-      .unshiftObjects([this.customPodBasedModuleName]);
+      .unshiftObjects([this.customPodBasedComponentsInSubdir]);
   }).readOnly(),
 
 });
