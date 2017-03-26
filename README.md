@@ -8,13 +8,9 @@
 
 ## Installation
 
-You need node, npm, bower ember-cli console applications
-```sh
-npm install bower -g
-npm install ember-cli -g
-```
+**Note:** Make sure NodeJs and NPM are installed
 
-Build project
+For project building execute command:
 ```sh
 ./depoy.sh
 ```
