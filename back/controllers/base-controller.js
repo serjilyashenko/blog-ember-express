@@ -19,7 +19,7 @@ class BaseController {
                 .limit(metaNormalized.limit)
                 .skip(metaNormalized.offset)
                 .sort(metaNormalized.sortOptions)
-                .exec((err, records) => {
+                .exec((err, records = []) => {
                     // TODO: error handler
 
                     const payload = {
@@ -96,7 +96,7 @@ class BaseController {
         const page = Number(query.page) || 1;
         const sortOptions = this._getSortOptions(query.order);
 
-        const maxPage = Math.ceil(recordsCount / limit);
+        const maxPage = Math.ceil(recordsCount / limit) || 1;
         const currentPage = Math.min(page, maxPage);
 
         const offset = Math.max((currentPage - 1) * limit);
