@@ -12,7 +12,7 @@ class BaseController {
         this.Model.count((err, recordsCount) => {
             // TODO: error handler
 
-            const metaNormalized = this._normalizeMeta(req.query, recordsCount);
+            const metaNormalized = this._normalizeMeta(req.query, recordsCount, this);
             const metaSerialized = this._serializeMeta(metaNormalized, recordsCount);
 
             this.Model.find({})
@@ -21,6 +21,8 @@ class BaseController {
                 .sort(metaNormalized.sortOptions)
                 .exec((err, records = []) => {
                     // TODO: error handler
+
+                    console.log(err);
 
                     const payload = {
                         [this.modelName]: records,
@@ -84,14 +86,16 @@ class BaseController {
         return reques.params.id;
     }
 
-    _getSortOptions(order = '_id:asc') {
-        const orderBy = order.split(':')[0];
+    _getSortOptions(order = 'created:asc') {
+        const orderKey = order.split(':')[0];
         const orderType = order.split(':')[1] === 'desc' ? -1 : 1;
+
+        const orderBy = orderKey in this.Model.schema.obj ? orderKey : 'created';
 
         return {[orderBy]: orderType};
     }
 
-    _normalizeMeta(query = {}, recordsCount) {
+    _normalizeMeta(query = {}, recordsCount = 0) {
         const limit = Number(query.limit) || 50;
         const page = Number(query.page) || 1;
         const sortOptions = this._getSortOptions(query.order);
