@@ -5,7 +5,13 @@ export default Ember.Route.extend({
   queryParams: {
     order: {
       refreshModel: true,
-    }
+    },
+    page: {
+      refreshModel: true,
+    },
+    limit: {
+      refreshModel: true,
+    },
   },
 
   beforeModel(transition) {
@@ -15,6 +21,8 @@ export default Ember.Route.extend({
 
   model(params) {
     console.log('>> model ', params);
+    console.log('>> model ', Object.keys(this.get('queryParams')));
+    console.log('>> model ', Object.keys(params));
 
     return this.store.query('article', params);
   },
@@ -36,6 +44,14 @@ export default Ember.Route.extend({
     console.log('>> ', model);
   },
 
+  _normalizeMeta(meta) {
+    return {
+      order: meta.order,
+      page: meta.page.current,
+      limit: meta.limit,
+    };
+  },
+
   actions: {
 
     willTransition() {
@@ -44,16 +60,22 @@ export default Ember.Route.extend({
 
     didTransition() {
       console.log('didTransition');
-      const model = this.controller.get('model');
-      console.log('? ', model.get('meta.order'));
-      this.controller.set('order', model.get('meta.order'));
+      const meta = this.controller.get('model.meta');
+      const metaNormalized = this._normalizeMeta(meta);
+      this.controller.setProperties(metaNormalized);
     },
 
     loading(transition) {
       console.log('loading');
-      transition.finally(function() {
+      transition.finally(function () {
         console.log('LOADED');
       });
+    },
+
+    queryParamsDidChange(params1, params2) {
+      const correctParams = Object.keys(this.get('queryParams'));
+
+      // todo: check params1 and params2 on correct
     },
 
   },

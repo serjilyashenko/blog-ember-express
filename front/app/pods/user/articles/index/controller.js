@@ -2,9 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  queryParams: ['order'],
+  queryParams: ['order', 'page', 'limit'],
 
   order: 'created:asc',
+  page: 1,
+  limit: 2,
 
   actions: {
 
