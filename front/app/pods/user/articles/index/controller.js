@@ -1,18 +1,15 @@
 import Ember from 'ember';
+import {DEFAULT_QUERY_PARAMS} from 'front/const/defaults';
 
 export default Ember.Controller.extend({
 
-  queryParams: ['order', 'page', 'limit'],
-
-  order: 'created:asc',
-  page: 1,
-  limit: 2,
+  order: DEFAULT_QUERY_PARAMS.ORDER,
+  page: DEFAULT_QUERY_PARAMS.PAGE,
+  limit: DEFAULT_QUERY_PARAMS.LIMIT,
 
   actions: {
 
     changeOrder() {
-      console.log(this.get('order'));
-
       if (this.get('order') === 'created:asc') {
         this.set('order', 'created:desc');
       } else {

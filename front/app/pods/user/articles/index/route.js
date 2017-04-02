@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {DEFAULT_QUERY_PARAMS} from 'front/const/defaults';
 
 export default Ember.Route.extend({
 
@@ -14,42 +15,55 @@ export default Ember.Route.extend({
     },
   },
 
-  beforeModel(transition) {
-    this._super(...arguments);
-    console.log('>> beforeModel ', transition);
-  },
+  model(params, transition) {
+    const allQueryParams = transition.queryParams;
+    const dirtyParamsKeys = this._propertyDifference(allQueryParams, params);
 
-  model(params) {
-    console.log('>> model ', params);
-    console.log('>> model ', Object.keys(this.get('queryParams')));
-    console.log('>> model ', Object.keys(params));
+    if (dirtyParamsKeys.length > 0) {
+      dirtyParamsKeys.forEach((key) => {
+        delete allQueryParams[key];
+      });
+      this.refresh();   // refresh route for clearing of dirty query params
+    }
 
     return this.store.query('article', params);
   },
 
-  afterModel(model) {
+  afterModel(model, transition) {
     this._super(...arguments);
-    console.log('>> afterModel ', model);
-    console.log(this.controller);
+
+    transition.promise.then((route) => {
+      const meta = model.get('meta');
+      const metaNormalized = this._normalizeMeta(meta);
+
+      route.controller.setProperties(metaNormalized);
+    });
+
   },
 
-  resetController() {
-    console.log('>> resetController');
+  _propertyDifference(minuend, subtrahend) {
+    const minutedKeys = Object.keys(minuend);
+    const subtrahendKeys = Object.keys(subtrahend);
+
+    return minutedKeys
+      .map((key) => {
+        if (subtrahendKeys.includes(key)) {
+          return null;
+        }
+
+        return key;
+      })
+      .without(null);
   },
 
-  setupController(controller, model) {
-    this._super(...arguments);
-    console.log('>> setupController ');
-    console.log('>> ', controller);
-    console.log('>> ', model);
-  },
+  _normalizeMeta({
+                   order = DEFAULT_QUERY_PARAMS.ORDER,
+                   limit = DEFAULT_QUERY_PARAMS.LIMIT,
+                   page = {},
+                 } = {}) {
+    const currentPage = page.current || DEFAULT_QUERY_PARAMS.PAGE;
 
-  _normalizeMeta(meta) {
-    return {
-      order: meta.order,
-      page: meta.page.current,
-      limit: meta.limit,
-    };
+    return {order, limit, page: currentPage};
   },
 
   actions: {
@@ -60,24 +74,15 @@ export default Ember.Route.extend({
 
     didTransition() {
       console.log('didTransition');
-      const meta = this.controller.get('model.meta');
-      const metaNormalized = this._normalizeMeta(meta);
-      this.controller.setProperties(metaNormalized);
     },
 
     loading(transition) {
+      this._super(...arguments);
       console.log('loading');
       transition.finally(function () {
         console.log('LOADED');
       });
     },
 
-    queryParamsDidChange(params1, params2) {
-      const correctParams = Object.keys(this.get('queryParams'));
-
-      // todo: check params1 and params2 on correct
-    },
-
   },
-
 });
