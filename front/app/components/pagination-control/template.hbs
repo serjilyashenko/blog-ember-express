@@ -1,0 +1,15 @@
+<div class="ui pagination menu">
+  <a class="icon item {{if (eq currentPage 1) 'disabled'}}" {{action 'decrementPage'}}>
+    <i class="left arrow icon"></i>
+  </a>
+
+  {{#each pageNumbers as |pageNumber|}}
+    <a class="item {{if (eq pageNumber currentPage) 'active'}}" {{action 'setPage' pageNumber}}>
+      {{pageNumber}}
+    </a>
+  {{/each}}
+
+  <a class="icon item {{if (eq currentPage maxPage) 'disabled'}}" {{action 'incrementPage'}}>
+    <i class="right arrow icon"></i>
+  </a>
+</div>

@@ -1,2 +1,9 @@
 <button {{action 'changeOrder'}}>order</button>
+
 {{articles/index-page model=model}}
+
+{{pagination-control
+  currentPage=page
+  pagesCount=model.meta.page.total
+  setPage=(action (mut page))
+}}
