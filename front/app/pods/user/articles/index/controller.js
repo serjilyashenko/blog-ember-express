@@ -15,7 +15,11 @@ export default Ember.Controller.extend({
       } else {
         this.set('order', 'created:asc');
       }
-    }
+    },
+
+    setOrder(order) {
+      this.set('order', order);
+    },
 
   },
 

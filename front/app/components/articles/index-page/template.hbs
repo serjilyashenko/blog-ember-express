@@ -1,4 +1,5 @@
-{{model.meta.total}}
+<div class="ui hidden divider"></div>
+
 {{#each model as |article index|}}
   <h1 class="ui header">
     {{#link-to "user.articles.article" article.id}}
@@ -12,5 +13,6 @@
       {{article.created}}
     </div>
   </h1>
+
   <div class="ui hidden divider"></div>
 {{/each}}

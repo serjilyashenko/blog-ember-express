@@ -1,0 +1,27 @@
+<form class="ui form">
+
+  <div class="field">
+    <label>Title</label>
+    {{input type="text" value=title placeholder="Title"}}
+  </div>
+
+  <div class="field">
+    <label>Short</label>
+    {{textarea value=short rows="2" placeholder="Short"}}
+  </div>
+
+  <div class="field">
+    <label>Text</label>
+    {{textarea value=post placeholder="Text"}}
+  </div>
+
+  <div class="field">
+    <div class="ui checkbox">
+      {{input type="checkbox" checked=enabled}}
+      <label>I agree to the Terms and Conditions</label>
+    </div>
+  </div>
+
+  <button class="ui button {{unless enabled 'disabled'}}" type="submit">Save</button>
+
+</form>

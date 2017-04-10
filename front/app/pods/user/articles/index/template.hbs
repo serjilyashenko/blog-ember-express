@@ -1,4 +1,15 @@
-<button {{action 'changeOrder'}}>order</button>
+<div class="ui buttons">
+  <button {{action 'setOrder' 'created:asc'}}
+    class="ui button {{if (eq order 'created:asc') 'active'}}">Asc</button>
+  <div class="or"></div>
+  <button {{action 'setOrder' 'created:desc'}}
+    class="ui button {{if (eq order 'created:desc') 'active'}}">Desc</button>
+</div>
+
+{{#link-to 'user.articles.new' tagName='button' class='ui primary button'}}
+  <i class="add circle icon"></i>
+  Add Article
+{{/link-to}}
 
 {{articles/index-page model=model}}
 
