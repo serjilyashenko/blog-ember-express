@@ -1,18 +1,22 @@
 <form class="ui form">
 
+  !{{model}}!
+  {{#link-to 'user.articles.article' 1}}hello1{{/link-to}}
+  {{#link-to 'user.articles.new'}}hello2{{/link-to}}
+
   <div class="field">
     <label>Title</label>
-    {{input type="text" value=title placeholder="Title"}}
+    {{input type="text" value=model.title placeholder="Title"}}
   </div>
 
   <div class="field">
     <label>Short</label>
-    {{textarea value=short rows="2" placeholder="Short"}}
+    {{textarea value=model.short rows="2" placeholder="Short"}}
   </div>
 
   <div class="field">
     <label>Text</label>
-    {{textarea value=post placeholder="Text"}}
+    {{textarea value=model.post placeholder="Text"}}
   </div>
 
   <div class="field">
@@ -22,6 +26,6 @@
     </div>
   </div>
 
-  <button class="ui button {{unless enabled 'disabled'}}" type="submit">Save</button>
+  <button class="ui button {{unless enabled 'disabled'}}" {{action 'save'}}>Save</button>
 
 </form>
