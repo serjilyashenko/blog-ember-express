@@ -1,9 +1,5 @@
 <form class="ui form">
 
-  !{{model}}!
-  {{#link-to 'user.articles.article' 1}}hello1{{/link-to}}
-  {{#link-to 'user.articles.new'}}hello2{{/link-to}}
-
   <div class="field">
     <label>Title</label>
     {{input type="text" value=model.title placeholder="Title"}}
@@ -26,6 +22,11 @@
     </div>
   </div>
 
-  <button class="ui button {{unless enabled 'disabled'}}" {{action 'save'}}>Save</button>
+  <button class="ui primary button {{unless enabled 'disabled'}}" {{action 'save'}}>
+    Save
+  </button>
+  {{#link-to 'user.articles' tagName='button' class='ui button'}}
+    Cancel
+  {{/link-to}}
 
 </form>

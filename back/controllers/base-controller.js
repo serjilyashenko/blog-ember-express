@@ -42,17 +42,27 @@ class BaseController {
         });
     }
 
-    create(req, res) {
+    create({body = {}}, res) {
         const Model = this.Model;
-        const recordPrototype = req.body;
+        const newRecord = body[this.modelName];
 
-        console.log('>> ', recordPrototype);
+        if (!newRecord) {
+            res.send(422);
+        }
 
-        const record = new Model(recordPrototype);
+        const record = new Model(newRecord);
 
-        record.save().then((record) => {
-            res.send(record);
-        });
+        record.save()
+            .then((record) => {
+                const payload = {
+                    [this.modelName]: record,
+                };
+
+                res.send(payload);
+            })
+            .catch(() => {
+                res.send(422);
+            });
         // TODO: errors or 200 status
     }
 

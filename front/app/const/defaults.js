@@ -1,6 +1,6 @@
 const DEFAULT_QUERY_PARAMS = {
   ORDER: 'created:asc',
-  LIMIT: 2,
+  LIMIT: 5,
   PAGE: 1,
 };
 
