@@ -22,12 +22,7 @@ class BaseController {
                 .exec((err, records = []) => {
                     // TODO: error handler
 
-                    console.log(err);
-
-                    const payload = {
-                        [this.modelName]: records,
-                        meta: metaSerialized,
-                    };
+                    const payload = this._serializeResponse(records, metaSerialized);
 
                     res.send(payload);
                 });
@@ -38,7 +33,10 @@ class BaseController {
         const id = req.params.id;
         this.Model.findById(id, (err, record) => {
             // TODO: error
-            res.send(record);
+
+            const payload = this._serializeResponse(record);
+
+            res.send(payload);
         });
     }
 
@@ -54,9 +52,7 @@ class BaseController {
 
         record.save()
             .then((record) => {
-                const payload = {
-                    [this.modelName]: record,
-                };
+                const payload = this._serializeResponse(record);
 
                 res.send(payload);
             })
@@ -133,6 +129,13 @@ class BaseController {
             total: recordsCount,
             limit: limit,
             order: order,
+        };
+    }
+
+    _serializeResponse(content, meta) {
+        return {
+            meta,
+            [this.modelName]: content,
         };
     }
 }

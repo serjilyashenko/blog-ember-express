@@ -7,7 +7,6 @@ export default Ember.Controller.extend({
     save(changeset) {
       changeset.save()
         .then((changeset) => {
-        console.log(changeset);
           this.transitionToRoute('user.articles.article', changeset.get('id'));
         })
         .catch((error) => {

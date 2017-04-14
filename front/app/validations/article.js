@@ -7,6 +7,15 @@ export default {
 
   title: [
     validatePresence(true),
+    validateLength({min: 3, max: 100}),
+  ],
+
+  short: [
+    validateLength({max: 500}),
+  ],
+
+  post: [
+    validateLength({max: 10000}),
   ],
 
 };
