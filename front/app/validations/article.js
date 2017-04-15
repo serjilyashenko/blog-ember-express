@@ -14,8 +14,4 @@ export default {
     validateLength({max: 500}),
   ],
 
-  post: [
-    validateLength({max: 10000}),
-  ],
-
 };

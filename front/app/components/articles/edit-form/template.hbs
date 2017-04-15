@@ -1,13 +1,15 @@
 <form class="ui form">
 
-  <div class="field error">
+  <div class="field {{if model.error.title.validation.firstObject 'error'}}">
     <label>Title</label>
     {{input type="text" value=model.title placeholder="Title"}}
+    {{error-popover errorMessage=model.error.title.validation.firstObject}}
   </div>
 
-  <div class="field">
+  <div class="field {{if model.error.short.validation.firstObject 'error'}}">
     <label>Short</label>
     {{textarea value=model.short rows="2" placeholder="Short"}}
+    {{error-popover errorMessage=model.error.short.validation.firstObject}}
   </div>
 
   <div class="field">
