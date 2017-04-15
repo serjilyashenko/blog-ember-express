@@ -1,0 +1,21 @@
+<h2 class="ui header">
+  {{model.title}}
+</h2>
+
+{{#if model.short}}
+  <div class="ui segment">
+    <p>{{model.short}}</p>
+  </div>
+{{/if}}
+
+<div>
+  <p>{{model.post}}</p>
+</div>
+
+<div class="ui divider"></div>
+
+<div>
+  Created: <i>{{moment-format model.created 'LL'}}</i>
+  |
+  Author: <b>{{model.author}}</b>
+</div>

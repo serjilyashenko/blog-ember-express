@@ -4,10 +4,16 @@ const DEFAULT_QUERY_PARAMS = {
   PAGE: 1,
 };
 
+const DATE_FORMATS = {
+  DEFAULT: 'LL',
+};
+
 export {
-  DEFAULT_QUERY_PARAMS
+  DEFAULT_QUERY_PARAMS,
+  DATE_FORMATS
 };
 
 export default {
   DEFAULT_QUERY_PARAMS,
+  DATE_FORMATS,
 };

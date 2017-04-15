@@ -31,6 +31,11 @@ export default Ember.Component.extend({
     const $error = this.get('$error');
 
     this.set('renderedError', errorMessage);
+
+    if ($error.hasClass('animating')) {
+      return;
+    }
+
     $error.transition(`slide down in`);
   },
 

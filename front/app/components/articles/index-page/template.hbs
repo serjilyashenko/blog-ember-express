@@ -7,10 +7,10 @@
     {{/link-to}}
     <i>by {{article.author}}</i>
     <div class="sub header">
-      {{article.post}}
+      {{article.short}}
     </div>
     <div class="sub header">
-      {{article.created}}
+      <i>{{moment-format model.created 'MM-DD-YYYY'}}</i>
     </div>
   </h1>
 
