@@ -62,19 +62,31 @@ class BaseController {
         // TODO: errors or 200 status
     }
 
-    update(req, res) {
+    update({body = {}, params = {}}, res) {
         const Model = this.Model;
-        const id = this._getIdByReqest(req);
-        const newProperties = req.body;
+        const id = params.id;
+        const newRecord = body[this.modelName];
 
+        if (!newRecord) {
+            res.send(422);
+        }
+
+        // Refactor it
         Model.findById(id, (err, record) => {
-            Object.assign(record, newProperties);
+            Object.assign(record, newRecord);
 
-            record.save((err, updatedRecord) => {
-                // TODO: error handler
-                res.send(updatedRecord);
+            return record.save((err, updatedRecord) => {
+                return updatedRecord;
             });
-        });
+        })
+            .then((updatedRecord) => {
+                const payload = this._serializeResponse(updatedRecord);
+
+                res.send(payload);
+            })
+            .catch(() => {
+                res.sendStatus(422);
+            });
     }
 
     destroy(req, res) {
@@ -83,7 +95,7 @@ class BaseController {
         this.Model.findById(id, (err, record) => {
             // TODO: error handler
             record.remove(() => {
-                res.sendStatus(200);
+                res.send({});
             });
         });
     }

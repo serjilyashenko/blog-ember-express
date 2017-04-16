@@ -18,4 +18,21 @@
   Created: <i>{{moment-format model.created 'LL'}}</i>
   |
   Author: <b>{{model.author}}</b>
+
+  {{#link-to 'user.articles.edit' model.id class="ui circular vertical animated button" tabindex="0"}}
+    <div class="hidden content">Edit</div>
+    <div class="visible content">
+      <i class="edit icon"></i>
+    </div>
+  {{/link-to}}
+
+  <div {{action 'delete'}}
+    class="ui circular vertical animated button negative" tabindex="0">
+    <div class="hidden content">Delete</div>
+    <div class="visible content">
+      <i class="trash icon"></i>
+    </div>
+  </div>
+
+
 </div>

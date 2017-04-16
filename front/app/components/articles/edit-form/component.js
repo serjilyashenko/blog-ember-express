@@ -10,6 +10,10 @@ export default Ember.Component.extend({
       this.sendAction('save', model);
     },
 
+    cancel() {
+      this.sendAction('cancel');
+    }
+
   },
 
 });

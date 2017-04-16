@@ -27,8 +27,8 @@
   <button class="ui primary button {{unless enabled 'disabled'}}" {{action 'save'}}>
     Save
   </button>
-  {{#link-to 'user.articles' tagName='button' class='ui button'}}
+  <button class="ui button" {{action 'cancel'}}>
     Cancel
-  {{/link-to}}
+  </button>
 
 </form>

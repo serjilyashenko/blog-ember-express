@@ -14,7 +14,7 @@ export default ManagementController.extend({
     },
 
     cancel() {
-      this.transitionToRoute('user.articles');
+      this.transitionToRoute('user.articles.article', this.get('model.id'));
     },
 
   },

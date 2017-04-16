@@ -1,24 +1,9 @@
-import Ember from 'ember';
-import Changeset from 'ember-changeset';
-import ArticleValidation from 'front/validations/article';
-import lookupValidator from 'ember-changeset-validations';
+import ManagementRouter from 'front/addons/management-route/route';
 
-export default Ember.Route.extend({
+export default ManagementRouter.extend({
 
   model() {
-    return this.store.createRecord('article');
-  },
-
-  setupController(controller, model) {
-    this._super(controller, model);
-
-    const changeset = new Changeset(
-      model,
-      lookupValidator(ArticleValidation),
-      ArticleValidation,
-      { skipValidate: true }
-    );
-    controller.set('changeset', changeset);
+    return this.get('store').createRecord('article');
   },
 
   resetController(controller) {
@@ -27,25 +12,6 @@ export default Ember.Route.extend({
     if (model.get('isNew')) {
       model.destroyRecord();
     }
-  },
-
-  actions: {
-
-    willTransition(transition) {
-      const idDirtyChangeset = this.get('controller.changeset.isDirty');
-
-      if (!idDirtyChangeset) {
-        return;
-      }
-
-      // refactor to normal popup
-      if (confirm('You have unsaved changes.  Are you sure you want to leave this page?')) {
-        return;
-      }
-
-      transition.abort();
-    },
-
   },
 
 });
