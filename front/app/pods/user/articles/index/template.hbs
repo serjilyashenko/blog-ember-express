@@ -11,10 +11,7 @@
   Add Article
 {{/link-to}}
 
-{{articles/index-page model=model}}
-
-{{pagination-control
-  currentPage=page
-  pagesCount=model.meta.page.total
-  setPage=(action (mut page))
+{{articles/index-page
+  model=model
+  setPage=(action 'setPage')
 }}

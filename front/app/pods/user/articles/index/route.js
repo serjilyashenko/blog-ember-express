@@ -1,16 +1,11 @@
 import Ember from 'ember';
 import {DEFAULT_QUERY_PARAMS} from 'front/const/defaults';
+import PaginationRouteMixin from 'ember-pagination-addon/mixins/pagination-route-mixin';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(PaginationRouteMixin, {
 
   queryParams: {
     order: {
-      refreshModel: true,
-    },
-    page: {
-      refreshModel: true,
-    },
-    limit: {
       refreshModel: true,
     },
   },

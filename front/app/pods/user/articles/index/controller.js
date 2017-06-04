@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import {DEFAULT_QUERY_PARAMS} from 'front/const/defaults';
+import PaginationControllerMixin from 'ember-pagination-addon/mixins/pagination-controller-mixin';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(PaginationControllerMixin, {
+
+  limit: DEFAULT_QUERY_PARAMS.LIMIT,
 
   order: DEFAULT_QUERY_PARAMS.ORDER,
-  page: DEFAULT_QUERY_PARAMS.PAGE,
-  limit: DEFAULT_QUERY_PARAMS.LIMIT,
 
   actions: {
 

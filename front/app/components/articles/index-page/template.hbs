@@ -16,3 +16,9 @@
 
   <div class="ui hidden divider"></div>
 {{/each}}
+
+{{pagination-addon
+  pagesCount=model.meta.page.total
+  currentPage=model.meta.page.current
+  setPage=setPage
+}}
