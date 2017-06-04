@@ -1,4 +1,8 @@
-import ManagementRouter from 'front/addons/management-route/route';
+import ChangeSetRoute from 'front/addons/changeset-route/route';
+import ArticleValidation from 'front/validations/article';
 
-export default ManagementRouter.extend({
+export default ChangeSetRoute.extend({
+
+  validation: ArticleValidation,
+
 });

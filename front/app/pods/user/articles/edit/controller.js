@@ -1,6 +1,6 @@
-import ManagementController from 'front/addons/management-route/controller';
+import ChangeSetController from 'front/addons/changeset-route/controller';
 
-export default ManagementController.extend({
+export default ChangeSetController.extend({
 
   actions: {
 
