@@ -1,6 +1,7 @@
 import ChangeSetController from 'front/addons/changeset-route/controller';
+import ConfirmModalMixin from 'front/mixins/confirm-modal-mixin';
 
-export default ChangeSetController.extend({
+export default ChangeSetController.extend(ConfirmModalMixin, {
 
   actions: {
 

@@ -32,12 +32,6 @@ export default Ember.Route.extend({
     return Ember.get(changeSet, 'isDirty');
   },
 
-  isUserLeaving() {
-    return new Promise(resolve => {
-      resolve(confirm('You have unsaved changes.  Are you sure you want to leave this page?'));
-    });
-  },
-
   actions: {
 
     didTransition() {
@@ -59,7 +53,7 @@ export default Ember.Route.extend({
 
       transition.abort();
 
-      this.isUserLeaving().then(isLeaving => {
+      this.controller.isUserLeaving().then(isLeaving => {
         if (isLeaving) {
           this.set('isAllowedTransition', true);
           transition.retry();

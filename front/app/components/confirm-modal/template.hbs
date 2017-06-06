@@ -1,0 +1,22 @@
+<div class="ui modal confirm-modal-{{elementId}}">
+
+  <i class="close icon"></i>
+
+  <div class="header">
+    {{headerText}}
+  </div>
+
+  <div class="content">
+    <p>{{yield}}</p>
+  </div>
+
+  <div class="actions">
+    <div class="ui deny button">
+      Nope
+    </div>
+    <div class="ui approve primary right labeled icon button">
+      Yep
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>

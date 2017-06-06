@@ -1,6 +1,16 @@
 {{articles/edit-form
-  tittle='New Article'
+  title='New Article'
   model=changeSet
   save=(action 'save')
   cancel=(action 'cancel')
 }}
+
+{{#confirm-modal
+  header='Cancel Data'
+  isActive=isConfirming
+  onHide=(action (mut isConfirming))
+  onConfirm=(action 'onLeaving' true)
+  onDeny=(action 'onLeaving' false)
+}}
+  You have unsaved changes. Are you sure you want to leave this page?
+{{/confirm-modal}}

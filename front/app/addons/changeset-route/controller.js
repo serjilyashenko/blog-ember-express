@@ -2,13 +2,19 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
+  isUserLeaving() {
+    return new Promise(resolve => {
+      resolve(confirm('You have unsaved changes. Are you sure you want to leave this page?'));
+    });
+  },
+
   actions: {
 
-    save(changeset) {
-      return changeset.validate()
+    save(changeSet) {
+      return changeSet.validate()
         .then(() => {
-          if (changeset.get('isValid')) {
-            return changeset.save();
+          if (changeSet.get('isValid')) {
+            return changeSet.save();
           }
 
           throw new Error('>> validation error ! HANDLE ERRORS');
