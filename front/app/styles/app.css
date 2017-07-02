@@ -2,3 +2,6 @@
   pointer-events: none;
 }
 
+.button-min-width {
+  min-width: 90px;
+}

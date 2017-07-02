@@ -1,0 +1,8 @@
+{{#unless model.isInBookmarks}}
+  <div class="ui circular vertical animated mini button" tabindex="0" {{action 'addToBookmarks' model.id}}>
+    <div class="visible content">
+      <i class="bookmark icon"></i> add
+    </div>
+    <div class="hidden content">to reading list</div>
+  </div>
+{{/unless}}

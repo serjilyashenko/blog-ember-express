@@ -5,13 +5,19 @@
     {{#link-to "user.articles.article" article.id}}
       {{article.title}}
     {{/link-to}}
+
     <i>by {{article.author}}</i>
+
+    {{add-bookmark model=article}}
+
     <div class="sub header">
       {{article.short}}
     </div>
+
     <div class="sub header">
       <i>{{moment-format article.created 'LL'}}</i>
     </div>
+
   </h1>
 
   <div class="ui hidden divider"></div>

@@ -7,8 +7,30 @@
         </a>
         {{#link-to "user.articles" class="active item"}}My Articles{{/link-to}}
         <div class="right item">
-          <a class="ui inverted button">Log in</a>
-          <a class="ui inverted button">Sign Up</a>
+          <div>
+
+            <div class="ui circular vertical animated button button-min-width" tabindex="0">
+              <div class="visible content">
+                <i class="bookmark icon"></i>({{readingList.length}})
+              </div>
+              <div class="hidden content">Read ({{readingList.length}})</div>
+            </div>
+
+            <div class="ui circular vertical animated button button-min-width" tabindex="0">
+              <div class="visible content">
+                <i class="sign in icon"></i>
+              </div>
+              <div class="hidden content">Sign In</div>
+            </div>
+
+            <div class="ui circular vertical animated button button-min-width" tabindex="0">
+              <div class="visible content">
+                <i class="add user icon"></i>
+              </div>
+              <div class="hidden content">Sign In</div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

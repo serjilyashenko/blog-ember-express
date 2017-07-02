@@ -48,5 +48,7 @@ module.exports = function (environment) {
 
   }
 
+  // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
   return ENV;
 };
