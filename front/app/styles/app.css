@@ -5,3 +5,7 @@
 .button-min-width {
   min-width: 90px;
 }
+
+.large.text {
+  font-size: 1.5rem;
+}

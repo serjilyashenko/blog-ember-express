@@ -1,0 +1,25 @@
+<h1 class="ui header">
+  Reading List
+</h1>
+
+<div class="ui hidden divider"></div>
+
+{{#each model as |bookmark index|}}
+  <div>
+
+    {{#link-to 'user.articles.article' bookmark.article.id class="large text"}}
+      {{bookmark.article.title}}
+    {{/link-to}}
+
+    <div {{action 'removeBookmark' bookmark}}
+      class="ui circular vertical animated mini button negative" tabindex="0">
+      <div class="hidden content">Delete</div>
+      <div class="visible content">
+        <i class="trash icon"></i>
+      </div>
+    </div>
+
+    <div class="ui hidden divider"></div>
+
+  </div>
+{{/each}}

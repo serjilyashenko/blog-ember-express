@@ -9,13 +9,17 @@ class BaseController {
     }
 
     getAll(req, res) {
+        return this._getAll(req, res);
+    }
+
+    _getAll(req, res, criteria = {}) {
         this.Model.count((err, recordsCount) => {
             // TODO: error handler
 
             const metaNormalized = this._normalizeMeta(req.query, recordsCount, this);
             const metaSerialized = this._serializeMeta(metaNormalized, recordsCount);
 
-            this.Model.find({})
+            this.Model.find(criteria)
                 .limit(metaNormalized.limit)
                 .skip(metaNormalized.offset)
                 .sort(metaNormalized.sortOptions)

@@ -4,18 +4,10 @@ const url = require('url');
 class CommentsController extends BaseController {
 
     getAll(req, res) {
-        const baseUrl = req.baseUrl || '';
-        const articleId = baseUrl.split('/')[3];
+        const currentArticle = req.originalUrl.split('/')[3];
+        const criteria = {article_id: currentArticle};
 
-        this.Model.find({article_id: articleId}, (err, records) => {
-            // TODO: error
-
-            const payload = {
-                [this.modelName]: records,
-            };
-
-            res.send(payload);
-        });
+        return this._getAll(req, res, criteria);
     }
 
 }

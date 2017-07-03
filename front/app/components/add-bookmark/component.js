@@ -4,12 +4,12 @@ export default Ember.Component.extend({
 
   tagName: '',
 
-  readingList: Ember.inject.service(),
+  bookmarks: Ember.inject.service(),
 
   actions: {
 
-    addToBookmarks(id) {
-      this.get('readingList').add(id);
+    addToBookmarks(article) {
+      this.get('bookmarks').addArticle(article);
     },
 
   },

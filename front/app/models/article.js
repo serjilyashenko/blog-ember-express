@@ -9,12 +9,12 @@ export default DS.Model.extend({
   short: DS.attr('string'),
   post: DS.attr('string'),
 
-  readingList: Ember.inject.service(),
+  bookmarks: Ember.inject.service(),
 
   isInBookmarks: Ember.computed(
-    'readingList.list.[]',
+    'bookmarks.list.[]',
     function () {
-      return this.get('readingList.list').includes(this.get('id'));
+      return this.get('bookmarks.list').mapBy('article.id').includes(this.get('id'));
     }
   ),
 

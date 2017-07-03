@@ -9,12 +9,14 @@
         <div class="right item">
           <div>
 
-            <div class="ui circular vertical animated button button-min-width" tabindex="0">
-              <div class="visible content">
-                <i class="bookmark icon"></i>({{readingList.length}})
+            {{#link-to 'user.bookmarks'}}
+              <div class="ui circular vertical animated button button-min-width" tabindex="0">
+                <div class="visible content">
+                  <i class="bookmark icon"></i>({{bookmarks.length}})
+                </div>
+                <div class="hidden content">Read ({{bookmarks.length}})</div>
               </div>
-              <div class="hidden content">Read ({{readingList.length}})</div>
-            </div>
+            {{/link-to}}
 
             <div class="ui circular vertical animated button button-min-width" tabindex="0">
               <div class="visible content">
