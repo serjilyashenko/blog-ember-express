@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
@@ -8,11 +9,10 @@ export default Ember.Controller.extend({
 
       article.destroyRecord()
         .then(() => {
-          console.log('ok');
           this.transitionToRoute('user.articles');
         })
         .catch((error) => {
-          console.log(error);
+          console.warn(error);
         });
     },
 

@@ -14,7 +14,8 @@ export default DS.Model.extend({
   isInBookmarks: Ember.computed(
     'bookmarks.list.[]',
     function () {
-      return this.get('bookmarks.list').mapBy('article.id').includes(this.get('id'));
+      const id = this.get('id');
+      return this.get('bookmarks.list').mapBy('article.id').includes(id);
     }
   ),
 

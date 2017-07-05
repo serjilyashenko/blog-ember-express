@@ -64,18 +64,18 @@ export default Ember.Route.extend(PaginationRouteMixin, {
   actions: {
 
     willTransition() {
-      console.log('willTransition');
+      // console.log('willTransition');
     },
 
     didTransition() {
-      console.log('didTransition');
+      // console.log('didTransition');
     },
 
     loading(transition) {
       this._super(...arguments);
-      console.log('loading');
+      // console.log('loading');
       transition.finally(function () {
-        console.log('LOADED');
+        // console.log('LOADED');
       });
     },
 
