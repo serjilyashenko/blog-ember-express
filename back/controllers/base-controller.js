@@ -44,7 +44,11 @@ class BaseController {
         });
     }
 
-    create({body = {}}, res) {
+    create(req, res) {
+        return this._create(req, res)
+    }
+
+    _create({body = {}}, res, mixin = {}) {
         const Model = this.Model;
         const newRecord = body[this.modelName];
 
@@ -52,7 +56,7 @@ class BaseController {
             res.send(422);
         }
 
-        const record = new Model(newRecord);
+        const record = new Model(Object.assign(newRecord, mixin));
 
         record.save()
             .then((record) => {
@@ -66,7 +70,11 @@ class BaseController {
         // TODO: errors or 200 status
     }
 
-    update({body = {}, params = {}}, res) {
+    update(req, res) {
+        return this._update(req, res);
+    }
+
+    _update({body = {}, params = {}}, res) {
         const Model = this.Model;
         const id = params.id;
         const newRecord = body[this.modelName];

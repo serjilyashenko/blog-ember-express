@@ -5,7 +5,7 @@ class CommentsController extends BaseController {
 
     getAll(req, res) {
         const currentArticle = req.originalUrl.split('/')[3];
-        const criteria = {article_id: currentArticle};
+        const criteria = {article: currentArticle};
 
         return this._getAll(req, res, criteria);
     }
