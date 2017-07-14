@@ -18,19 +18,26 @@
               </div>
             {{/link-to}}
 
-            <div class="ui circular vertical animated button button-min-width" tabindex="0">
-              <div class="visible content">
-                <i class="sign in icon"></i>
-              </div>
-              <div class="hidden content">Sign In</div>
-            </div>
+            {{#if user}}
 
-            <div class="ui circular vertical animated button button-min-width" tabindex="0">
-              <div class="visible content">
-                <i class="add user icon"></i>
-              </div>
-              <div class="hidden content">Sign In</div>
-            </div>
+              {{#link-to 'user.articles' class="white"}}
+                {{user.name}} - {{user.email}}
+              {{/link-to}}
+
+              ( <a href="#" class="white" {{action "logout"}}>logout</a> )
+
+            {{else}}
+
+              {{#link-to 'users'}}
+                <div class="ui circular vertical animated button button-min-width" tabindex="0">
+                  <div class="visible content">
+                    <i class="sign in icon"></i>
+                  </div>
+                  <div class="hidden content">Log In</div>
+                </div>
+              {{/link-to}}
+
+            {{/if}}
 
           </div>
         </div>

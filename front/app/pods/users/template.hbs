@@ -1,0 +1,9 @@
+<h1 class="ui header">
+  Users
+</h1>
+
+{{#each model as |user|}}
+  <div>
+    <a href="#" {{action 'login' user}}>Log In</a> {{user.name}} - {{user.email}}
+  </div>
+{{/each}}
