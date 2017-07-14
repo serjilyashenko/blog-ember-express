@@ -7,10 +7,7 @@ const UserFabric = function (name, email) {
 export default Ember.Route.extend({
 
   model() {
-    return [
-      UserFabric('Batman', 'bat@gmail.com'),
-      UserFabric('Spiderman', 'web@gmail.com'),
-    ];
+    return this.store.findAll('user');
   },
 
 });
