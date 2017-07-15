@@ -106,10 +106,11 @@ class BaseController {
 
         this.Model.findById(id, (err, record) => {
             // TODO: error handler
-            record.remove(() => {
-                res.send({});
-            });
-        });
+
+            return record;
+        })
+            .then(record => record ? record.remove() : Promise.resolve())
+            .then(() => res.send({}));
     }
 
     _getIdByReqest(reques) {
