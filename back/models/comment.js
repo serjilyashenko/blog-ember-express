@@ -5,7 +5,7 @@ const commentSchema = new Schema({
     created: {type: Date, default: Date.now},
     author: {type: String, default: 'Anon'},
     text: String,
-    article_id: {type: Schema.Types.ObjectId, ref: 'Article', index: true},
+    article: {type: Schema.Types.ObjectId, ref: 'Article', index: true},
 });
 
 module.exports = mongoose.model('Comment', commentSchema);

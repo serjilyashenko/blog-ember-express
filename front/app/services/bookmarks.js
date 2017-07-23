@@ -3,12 +3,32 @@ import Ember from 'ember';
 export default Ember.Service.extend({
 
   store: Ember.inject.service(),
+  session: Ember.inject.service(),
 
-  list: Ember.computed(
-    'reloadBookmarks',
-    function () {
-      return this.get('store').findAll('bookmark');
-    }
+  user: Ember.computed.oneWay('session.currentUser'),
+
+  init() {
+    this._super(...arguments);
+
+    this.set('list', [])
+  },
+
+  listObs: Ember.on('init',
+    Ember.observer(
+      'user',
+      'user.bookmarks.[]',
+      'reloadBookmarks',
+      function () {
+        if (!this.get('user')) {
+          return this.get('list').clear();
+        }
+
+        this.get('user.bookmarks').then(it => {
+          this.get('list').clear();
+          this.get('list').addObjects(it)
+        });
+      }
+    )
   ),
 
   refresh() {
