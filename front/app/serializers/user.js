@@ -5,7 +5,7 @@ export default ApplicationSerializer.extend({
 
   store: Ember.inject.service(),
 
-  normalizeFindAllResponse(store, primaryModelClass, payload) {
+  normalizeFindAllResponse(/* store, primaryModelClass */) {
     const jsonApiPayload = this._super(...arguments);
 
     jsonApiPayload.data = jsonApiPayload.data.map(this.addLinks.bind(this));
@@ -13,7 +13,7 @@ export default ApplicationSerializer.extend({
     return jsonApiPayload;
   },
 
-  normalizeFindRecordResponse(store, type, payload) {
+  normalizeFindRecordResponse(/* store, type, payload */) {
     const jsonApiPayload = this._super(...arguments);
 
     jsonApiPayload.data = this.addLinks(jsonApiPayload.data);
