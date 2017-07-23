@@ -19,14 +19,15 @@ export default Ember.Service.extend({
       'user.bookmarks.[]',
       'reloadBookmarks',
       function () {
+        const list = this.get('list');
+
+        list.clear();
+
         if (!this.get('user')) {
-          return this.get('list').clear();
+          return;
         }
 
-        this.get('user.bookmarks').then(it => {
-          this.get('list').clear();
-          this.get('list').addObjects(it)
-        });
+        this.get('user.bookmarks').then(they => list.addObjects(they));
       }
     )
   ),
