@@ -10,9 +10,16 @@ const apiRoute = require('./routes/api');
 const app = express();
 
 const allowCrossDomain = function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (res.app.get('env') === 'development') {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        res.header('Access-Control-Allow-Credentials', true);
+        // res.header('Access-Control-Allow-Headers', 'X-Com');
+    }
+
+    // res.cookie('cookieName', 'cookieValue');
 
     next();
 };
@@ -31,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(allowCrossDomain);
 
 app.use('/api', apiRoute);
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
     res.sendFile("public/index.html", {"root": __dirname});
 });
 

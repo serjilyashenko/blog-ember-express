@@ -5,36 +5,12 @@ export default Ember.Service.extend({
   store: Ember.inject.service(),
   session: Ember.inject.service(),
 
-  user: Ember.computed.oneWay('session.currentUser'),
-
-  init() {
-    this._super(...arguments);
-
-    this.set('list', [])
-  },
-
-  listObs: Ember.on('init',
-    Ember.observer(
-      'user',
-      'user.bookmarks.[]',
-      'reloadBookmarks',
-      function () {
-        const list = this.get('list');
-
-        list.clear();
-
-        if (!this.get('user')) {
-          return;
-        }
-
-        this.get('user.bookmarks').then(they => list.addObjects(they));
-      }
-    )
+  list: Ember.computed(
+    'session.currentUser.bookmarks',
+    function () {
+      return this.get('session.currentUser.bookmarks') || [];
+    }
   ),
-
-  refresh() {
-    this.notifyPropertyChange('reloadBookmarks');
-  },
 
   length: Ember.computed(
     'list.[]',
@@ -50,11 +26,11 @@ export default Ember.Service.extend({
       article,
     });
 
-    newBookmark.save().then(() => this.refresh());
+    return newBookmark.save();
   },
 
   removeBookmark(bookmark) {
-    bookmark.destroyRecord().then(() => this.refresh());
+    return bookmark.destroyRecord();
   },
 
 });

@@ -7,6 +7,19 @@ export default DS.RESTAdapter.extend({
   host: ENV.APP.HOST || null,
   namespace: 'api',
 
+  ajax(url, method, hash) {
+
+    if (ENV.environment === 'development') {
+      if (!hash) {
+        hash = {};
+      }
+
+      hash.xhrFields = {withCredentials: true};
+    }
+
+    return this._super(url, method, hash);
+  },
+
   pathForType(type) {
     const superType = this._super(type);
 

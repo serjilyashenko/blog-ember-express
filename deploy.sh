@@ -37,3 +37,7 @@ else
 fi
 
 echo "$(tput setaf 2)>> deploying is successfully finished.$(tput sgr 0)"
+
+cd ..
+echo "Starting server..."
+NODE_ENV=production node back/bin/www
