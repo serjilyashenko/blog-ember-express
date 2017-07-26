@@ -8,7 +8,13 @@ export default Ember.Controller.extend({
 
     login(user) {
       this.get('session').login(user);
-      this.transitionToRoute('user.articles');
+
+      const previousTransition = this.get('previousTransition');
+
+      if (previousTransition) {
+        this.set('previousTransition', null);
+        previousTransition.retry();
+      }
     },
 
   },

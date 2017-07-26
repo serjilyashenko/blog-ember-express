@@ -20,5 +20,6 @@ Router.map(function () {
   });
 
   this.route('users');
+  this.route('authenticated');
 });
 export default Router;
