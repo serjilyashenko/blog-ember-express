@@ -13,10 +13,10 @@ export default Ember.Mixin.create({
       return this._super(...arguments);
     }
 
-    const loginController = this.controllerFor('users');
+    const loginController = this.controllerFor('login');
     loginController.set('previousTransition', transition);
 
-    this.transitionTo('users');
+    this.transitionTo('login');
   },
 
 });

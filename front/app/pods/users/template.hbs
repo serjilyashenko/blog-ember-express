@@ -4,6 +4,6 @@
 
 {{#each model as |user|}}
   <div>
-    <a href="#" {{action 'login' user}}>Log In</a> {{user.name}} - {{user.email}}
+    {{user.name}} - {{user.email}}
   </div>
 {{/each}}

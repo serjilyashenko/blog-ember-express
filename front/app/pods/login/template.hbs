@@ -1,0 +1,17 @@
+<h1 class="ui header">
+  Login
+</h1>
+
+<form class="ui form">
+  <div class="field">
+    <label>User Name</label>
+    {{input value=userName}}
+    {{error-popover errorMessage=loginError}}
+  </div>
+  <div class="field">
+    <label>Password</label>
+    {{input value=password type='password'}}
+  </div>
+  <button class="ui button" {{action 'login'}}>Login</button>
+
+</form>
