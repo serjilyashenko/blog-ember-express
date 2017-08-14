@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
 
       article.destroyRecord()
         .then(() => {
-          this.transitionToRoute('user.articles');
+          this.transitionToRoute('articles');
         })
         .catch((error) => {
           console.warn(error);

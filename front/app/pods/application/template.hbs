@@ -6,13 +6,13 @@
           <h1 class="ui inverted header">HelloBlog</h1>
         </div>
         <div class="item">
-          {{#link-to "user.articles" class="item"}}My Articles{{/link-to}}
+          {{#link-to "articles" class="item"}}My Articles{{/link-to}}
           {{#link-to "authenticated" class="item"}}Authenticated{{/link-to}}
         </div>
         <div class="right item">
           <div>
 
-            {{#link-to 'user.bookmarks'}}
+            {{#link-to 'bookmarks'}}
               <div class="ui circular vertical animated button button-min-width" tabindex="0">
                 <div class="visible content">
                   <i class="bookmark icon"></i>({{bookmarks.length}})
@@ -23,7 +23,7 @@
 
             {{#if user}}
 
-              {{#link-to 'user.articles' class="white"}}
+              {{#link-to 'articles' class="white"}}
                 {{user.name}} - {{user.email}}
               {{/link-to}}
 

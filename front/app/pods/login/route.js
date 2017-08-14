@@ -8,7 +8,7 @@ export default Ember.Route.extend({
     const user = this.get('session.currentUser');
 
     if (user) {
-      this.transitionTo('user.articles');
+      this.transitionTo('articles');
     }
 
     this._super(...arguments);

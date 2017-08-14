@@ -7,7 +7,7 @@
 {{#each model as |bookmark index|}}
   <div>
 
-    {{#link-to 'user.articles.article' bookmark.article.id class="large text"}}
+    {{#link-to 'articles.article' bookmark.article.id class="large text"}}
       {{bookmark.article.title}}
     {{/link-to}}
 

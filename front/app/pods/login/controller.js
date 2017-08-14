@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
       this.set('previousTransition', null);
       previousTransition.retry();
     } else {
-      this.transitionToRoute('user.articles');
+      this.transitionToRoute('articles');
     }
   },
 
