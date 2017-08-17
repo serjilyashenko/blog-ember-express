@@ -1,11 +1,21 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import ENV from '../config/environment';
+import Cookies from 'ember-cli-js-cookie';
 
 export default DS.RESTAdapter.extend({
 
   host: ENV.APP.HOST || null,
   namespace: 'api',
+
+  headers: Ember.computed({
+    get() {
+      const token = Cookies.get('authenticationToken');
+      const headers = token ? {'X-CSRF-Token': token} : {};
+
+      return headers;
+    }
+  }).volatile(),
 
   ajax(url, method, hash) {
 

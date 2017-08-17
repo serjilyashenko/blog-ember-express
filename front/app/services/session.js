@@ -10,27 +10,34 @@ export default Ember.Service.extend({
 
   currentUser: null,
 
-  // todo: fix that method. Very Important
-  login(userName, password) {
-    return this.get('store')
-      .findAll('user')
-      .then(users => users.findBy('name', userName))
-      .then(user => {
-        if (password !== 'secret' || !user) {
-          throw new Error('Wrong Ligin or Password');
+  login(email, password) {
+    return this.get('ajax')
+      .request('/sessions', {
+        method: 'POST',
+        data: {
+          email,
+          password,
+        }
+      })
+      .then(({userId, authenticationToken}) => {
+        if (!userId || !authenticationToken) {
+          throw new Error();
         }
 
-        return user;
+        Cookies.set('userId', userId);
+        Cookies.set('authenticationToken', authenticationToken);
+        this.initializeFromCookie();
+        return;
       })
-      .then(user => {
-        this.set('currentUser', user);
-        Cookies.set('userId', user.get('id'));
+      .catch(() => {
+        throw new Error('Wrong Ligin or Password');
       });
   },
 
   logout() {
     this.set('currentUser', null);
     Cookies.remove('userId');
+    Cookies.remove('authenticationToken');
   },
 
   initializeFromCookie: Ember.on('init', function () {

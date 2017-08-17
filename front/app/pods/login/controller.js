@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
   },
 
   clearObs: Ember.observer(
-    'userName',
+    'email',
     'password',
     function () {
       this.set('loginError', null);
@@ -26,9 +26,9 @@ export default Ember.Controller.extend({
   actions: {
 
     login() {
-      const {userName, password} = this.getProperties('userName', 'password');
+      const {email, password} = this.getProperties('email', 'password');
       this.get('session')
-        .login(userName, password)
+        .login(email, password)
         .then(() => this.transitionToPreviousRoute())
         .catch(reason => this.set('loginError', reason));
     },

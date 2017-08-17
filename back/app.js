@@ -16,7 +16,7 @@ const allowCrossDomain = function (req, res, next) {
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
         res.header('Access-Control-Allow-Credentials', true);
-        // res.header('Access-Control-Allow-Headers', 'X-Com');
+        res.header('Access-Control-Allow-Headers', 'X-CSRF-Token');
     }
 
     // res.cookie('cookieName', 'cookieValue');
