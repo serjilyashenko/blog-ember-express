@@ -1,3 +1,4 @@
+const token = require('../lib/token');
 const User = require.main.require('../models/user');
 
 class SessionsController {
@@ -15,7 +16,7 @@ class SessionsController {
                 return;
             }
 
-            res.send({userId: user.id, authenticationToken: 'secretToken'});
+            res.send({userId: user.id, authenticationToken: token});
         });
     }
 

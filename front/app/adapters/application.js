@@ -30,6 +30,18 @@ export default DS.RESTAdapter.extend({
     return this._super(url, method, hash);
   },
 
+  handleResponse(status, headers, payload, requestData) {
+    if (status === 401) {
+      const appInstance = Ember.getOwner(this);
+      const appAdapter = appInstance.lookup('route:application');
+
+      appAdapter.transitionTo('login');
+      return;
+    }
+
+    return this._super(...arguments);
+  },
+
   pathForType(type) {
     const superType = this._super(type);
 

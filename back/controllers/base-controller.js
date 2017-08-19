@@ -1,3 +1,4 @@
+const token = require('../lib/token');
 const MODELS_PATH = '../models';
 
 class BaseController {
@@ -48,7 +49,13 @@ class BaseController {
         return this._create(req, res)
     }
 
-    _create({body = {}}, res, mixin = {}) {
+    _create(req, res, mixin = {}) {
+        if (!this._isAuthorized(req)) {
+            res.status(401).send('Not Authorized');
+            return;
+        }
+
+        const {body = {}} = req;
         const Model = this.Model;
         const newRecord = body[this.modelName];
 
@@ -74,7 +81,13 @@ class BaseController {
         return this._update(req, res);
     }
 
-    _update({body = {}, params = {}}, res) {
+    _update(req, res) {
+        if (!this._isAuthorized(req)) {
+            res.status(401).send('Not Authorized');
+            return;
+        }
+
+        const {body = {}, params = {}} = req;
         const Model = this.Model;
         const id = params.id;
         const newRecord = body[this.modelName];
@@ -102,7 +115,12 @@ class BaseController {
     }
 
     destroy(req, res) {
-        const id = this._getIdByReqest(req);
+        if (!this._isAuthorized(req)) {
+            res.status(401).send('Not Authorized');
+            return;
+        }
+
+        const id = this._getIdByRequest(req);
 
         this.Model.findById(id, (err, record) => {
             // TODO: error handler
@@ -113,8 +131,12 @@ class BaseController {
             .then(() => res.send({}));
     }
 
-    _getIdByReqest(reques) {
-        return reques.params.id;
+    _isAuthorized(req) {
+        return req.header('X-CSRF-Token') === token;
+    }
+
+    _getIdByRequest(request) {
+        return request.params.id;
     }
 
     _getSortOptions(order = 'created:asc') {
