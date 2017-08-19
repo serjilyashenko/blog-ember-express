@@ -14,9 +14,8 @@ const allowCrossDomain = function (req, res, next) {
     if (res.app.get('env') === 'development') {
         res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        res.header('Access-Control-Allow-Headers', 'Content-Type');
         res.header('Access-Control-Allow-Credentials', true);
-        res.header('Access-Control-Allow-Headers', 'X-CSRF-Token');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, X-CSRF-Token');
     }
 
     // res.cookie('cookieName', 'cookieValue');

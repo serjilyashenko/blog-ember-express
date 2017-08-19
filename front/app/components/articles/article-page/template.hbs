@@ -20,22 +20,25 @@
 <div>
   Created: <i>{{moment-format model.created 'LL'}}</i>
   |
-  Author: <b>{{model.author}}</b>
+  Author: <b>{{model.author.name}}</b>
 
-  {{#link-to 'articles.edit' model.id class="ui circular vertical animated button" tabindex="0"}}
-    <div class="hidden content">Edit</div>
-    <div class="visible content">
-      <i class="edit icon"></i>
+  {{#if (eq model.author.id session.currentUser.id)}}
+
+    {{#link-to 'articles.edit' model.id class="ui circular vertical animated button" tabindex="0"}}
+      <div class="hidden content">Edit</div>
+      <div class="visible content">
+        <i class="edit icon"></i>
+      </div>
+    {{/link-to}}
+
+    <div {{action 'delete'}}
+      class="ui circular vertical animated button negative" tabindex="0">
+      <div class="hidden content">Delete</div>
+      <div class="visible content">
+        <i class="trash icon"></i>
+      </div>
     </div>
-  {{/link-to}}
 
-  <div {{action 'delete'}}
-    class="ui circular vertical animated button negative" tabindex="0">
-    <div class="hidden content">Delete</div>
-    <div class="visible content">
-      <i class="trash icon"></i>
-    </div>
-  </div>
-
+  {{/if}}
 
 </div>
