@@ -1,7 +1,12 @@
 const BaseController = require('./base-controller');
 const url = require('url');
+const MODEL_NAME = 'bookmark';
 
 class BookmarksController extends BaseController {
+
+    constructor() {
+        super(MODEL_NAME);
+    }
 
     static _getCurrentUserId(req) {
         // todo: maybe needs some refactoring

@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bookmarksRoute = require('./users/bookmarks');
-const BaseController = require.main.require('../controllers/base-controller');
+const UsersController = require.main.require('../controllers/users-controller');
 
-const MODEL_NAME = 'user';
-
-const usersController = new BaseController(MODEL_NAME);
+const usersController = new UsersController();
 
 router.get('/', usersController.getAll.bind(usersController));
 router.post('/', usersController.create.bind(usersController));

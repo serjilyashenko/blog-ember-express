@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const BookmarksController = require.main.require('../controllers/bookmarks-controller');
 
-const MODEL_NAME = 'bookmark';
-
-const bookmarkController = new BookmarksController(MODEL_NAME);
+const bookmarkController = new BookmarksController();
 
 router.get('/', bookmarkController.getAll.bind(bookmarkController));
 router.post('/', bookmarkController.create.bind(bookmarkController));
