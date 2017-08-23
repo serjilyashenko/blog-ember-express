@@ -7,7 +7,6 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function () {
-
   this.route('articles', function () {
     this.route('new');
     this.route('edit', {path: '/:article_id/edit'});
@@ -19,5 +18,6 @@ Router.map(function () {
   this.route('users');
   this.route('authenticated');
   this.route('login');
+  this.route('register');
 });
 export default Router;

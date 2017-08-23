@@ -1,0 +1,41 @@
+<h1>
+  Register
+</h1>
+
+<form class="ui form">
+
+  <div class="field">
+    <label>Email</label>
+    {{input value=changeSet.email}}
+    {{error-popover errorMessage=changeSet.error.email.validation.firstObject}}
+  </div>
+  <div class="field">
+    <label>Name</label>
+    {{input value=changeSet.name}}
+    {{error-popover errorMessage=changeSet.error.name.validation.firstObject}}
+  </div>
+  <div class="field">
+    <label>Password</label>
+    {{input value=changeSet.password type='password'}}
+    {{error-popover errorMessage=changeSet.error.password.validation.firstObject}}
+  </div>
+  <div class="field">
+    <label>Password again</label>
+    {{!todo: check passwordConfirmation}}
+    {{input value=passwordConfirmation type='password'}}
+    {{error-popover errorMessage=passwordConfirmationError}}
+  </div>
+
+  <button class="ui button primary" {{action 'save' changeSet}}>Register</button>
+
+</form>
+
+{{#confirm-modal
+  header='Cancel Data'
+  isActive=isConfirming
+  onHide=(action (mut isConfirming))
+  onConfirm=(action 'onLeaving' true)
+  onDeny=(action 'onLeaving' false)
+}}
+  You have unsaved changes. Are you sure you want to leave this page?
+{{/confirm-modal}}

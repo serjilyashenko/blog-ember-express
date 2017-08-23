@@ -11,7 +11,13 @@
   <div class="field">
     <label>Password</label>
     {{input value=password type='password'}}
+    {{error-popover errorMessage=loginError}}
   </div>
-  <button class="ui button" {{action 'login'}}>Login</button>
+  <button class="ui button primary" {{action 'login'}}>Login</button>
 
 </form>
+
+<div class="ui hidden divider"></div>
+
+Don't you have an account?
+{{#link-to 'register' class='ui button'}}Register{{/link-to}}

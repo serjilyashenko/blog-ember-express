@@ -21,6 +21,10 @@ class UsersController extends BaseController {
         }
     }
 
+    _isAuthorized(req) {
+        return req.method === 'POST' || this._super(req);
+    }
+
 }
 
 module.exports = UsersController;
