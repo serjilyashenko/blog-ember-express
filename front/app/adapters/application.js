@@ -30,7 +30,7 @@ export default DS.RESTAdapter.extend({
     return this._super(url, method, hash);
   },
 
-  handleResponse(status, headers, payload, requestData) {
+  handleResponse(status) {
     if (status === 401) {
       const appInstance = Ember.getOwner(this);
       const appAdapter = appInstance.lookup('route:application');
