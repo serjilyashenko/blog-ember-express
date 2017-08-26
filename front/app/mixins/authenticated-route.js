@@ -14,9 +14,7 @@ export default Ember.Mixin.create({
     }
 
     const loginController = this.controllerFor('login');
-    const registerController  = this.controllerFor('register');
     loginController.set('previousTransition', transition);
-    registerController.set('previousTransition', transition);
 
     this.transitionTo('login');
   },

@@ -19,5 +19,7 @@ Router.map(function () {
   this.route('authenticated');
   this.route('login');
   this.route('register');
+
+  this.route('not-found', {path: '/*path'});
 });
 export default Router;
